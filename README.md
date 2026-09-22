@@ -9,7 +9,7 @@ Designed and developed by **Ronik Halder ([S21SRK](https://www.qrz.com/db/S21SRK
 ## Features
 
 - **Live Hardware Telemetry**: Real-time scrolling graphs for CPU Temperature (°C) and 1-minute CPU Load Average via Chart.js.
-- **System Metrics**: Real-time RAM consumption, root storage utilization, system uptime, and Asterisk daemon health.
+- **System Metrics**: Real-time RAM utilization, root storage consumption, system uptime, and Asterisk daemon health.
 - **Synchronized Dual Digital Clocks**: Real-time digital clocks tracking **UTC/GMT** alongside local station time (configurable to any IANA timezone, e.g., `Asia/Dhaka`, `America/New_York`, `UTC`).
 - **Non-Destructive Integration**: Hosts all assets outside of the default `/var/www/html/` directory (inside `/opt/`) using Apache Aliases and lightweight CGI, ensuring core ASL3 files and updates remain intact.
 - **Dynamic Station Customization**: Interactive terminal prompts automatically personalize the dashboard with the operator's callsign, node number, QRZ links, and custom external port.
@@ -18,7 +18,7 @@ Designed and developed by **Ronik Halder ([S21SRK](https://www.qrz.com/db/S21SRK
 
 ## One-Line Automated Installation
 
-Connect to your Raspberry Pi via SSH and run either of these clean commands:
+Connect to your Raspberry Pi via SSH and run either of these commands:
 
 ```bash
 curl -sSL [https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh](https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh) | bash
