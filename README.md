@@ -10,25 +10,26 @@ Designed and developed by **Ronik Halder ([S21SRK](https://www.qrz.com/db/S21SRK
 
 Log in to your Raspberry Pi via SSH, switch to root (or use standard sudo privileges), and paste either of the following commands directly into the terminal:
 
+## Direct Terminal Quick Install (Root / Sudo)
+
+Log in to your Raspberry Pi via SSH and run either of the following commands:
+
 ### Option 1: Standard One-Line Curl Install
 ```bash
-curl -sSL [https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh](https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh) | bash
+curl -sSL https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh | bash
 ```
 
 ### Option 2: Process Substitution (Recommended for Root Shells)
 ```bash
-bash <(curl -sSL [https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh](https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh))
+bash <(curl -sSL https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh)
 ```
 
-### Option 3: Manual Step-by-Step Execution
-If your shell environment restricts piped execution, download and run it directly:
+### Option 3: Manual Download & Execute
 ```bash
-curl -sSL -o install.sh [https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh](https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh)
+curl -sSL -o install.sh https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh
 chmod +x install.sh
 ./install.sh
 ```
-
----
 
 ## Interactive Installation Prompts
 
