@@ -13,21 +13,24 @@ echo "    Developed by Ronik Halder (S21SRK)                              "
 echo "===================================================================="
 echo ""
 
-# 1. User Interactive Prompts
-read -p "Enter Amateur Radio Callsign [e.g. S21SRK]: " CALLSIGN
+# 1. User Interactive Prompts (Read directly from /dev/tty)
+read -p "Enter Amateur Radio Callsign [e.g. S21SRK]: " CALLSIGN </dev/tty
 CALLSIGN=${CALLSIGN^^}
+CALLSIGN=${CALLSIGN:-S21SRK}
 
-read -p "Enter Operator Name/Handle [e.g. Ronik Halder]: " OPERATOR_NAME
+read -p "Enter Operator Name/Handle [e.g. Ronik Halder]: " OPERATOR_NAME </dev/tty
+OPERATOR_NAME=${OPERATOR_NAME:-Ronik Halder}
 
-read -p "Enter AllStar Node Number [e.g. 62208]: " NODE_NUM
+read -p "Enter AllStar Node Number [e.g. 62208]: " NODE_NUM </dev/tty
+NODE_NUM=${NODE_NUM:-62208}
 
-read -p "Enter External HTTPS Port [default: 8443]: " WAN_PORT
+read -p "Enter External HTTPS Port [default: 8443]: " WAN_PORT </dev/tty
 WAN_PORT=${WAN_PORT:-8443}
 
-read -p "Enter Local Timezone [default: Asia/Dhaka]: " LOCAL_TZ
+read -p "Enter Local Timezone [default: Asia/Dhaka]: " LOCAL_TZ </dev/tty
 LOCAL_TZ=${LOCAL_TZ:-Asia/Dhaka}
 
-read -p "Enter Local Timezone Display Label [default: BST (UTC+6)]: " TZ_LABEL
+read -p "Enter Local Timezone Display Label [default: BST (UTC+6)]: " TZ_LABEL </dev/tty
 TZ_LABEL=${TZ_LABEL:-BST (UTC+6)}
 
 echo ""
@@ -104,7 +107,7 @@ disk_pct=$(echo "$disk_info" | awk '{print $3}')
 up_sec=$(awk '{print int($1)}' /proc/uptime)
 hours=$((up_sec / 3600))
 mins=$(((up_sec % 3600) / 60))
-uptime_str="${hours}h ${mins}m"
+uptime_str="${hours}h${mins}m"
 
 # Asterisk Process
 if systemctl is-active --quiet asterisk; then
@@ -158,7 +161,7 @@ sudo tee /opt/hub/index.html > /dev/null << EOF
 </head>
 <body>
     <div class="card-panel">
-        <h1>${CALLSIGN} // Node ${NODE_NUM}</h1>
+        <h1>${CALLSIGN} // Node${NODE_NUM}</h1>
         <p class="sub">Station Operator: ${OPERATOR_NAME}</p>
         <div class="grid">
             <a href="/allmon3/" class="btn">
@@ -194,7 +197,7 @@ sudo tee /opt/iot/index.html > /dev/null << EOF
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${CALLSIGN} // Node ${NODE_NUM} Telemetry Hub</title>
+    <title>${CALLSIGN} // Node${NODE_NUM} Telemetry Hub</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -339,7 +342,7 @@ sudo tee /opt/iot/index.html > /dev/null << EOF
         </div>
 
         <footer>
-            <div class="dev-title">Station ${CALLSIGN} &bull; Developed by ${OPERATOR_NAME}</div>
+            <div class="dev-title">Station ${CALLSIGN} &bull; Developed by${OPERATOR_NAME}</div>
             <div class="copyright">&copy; <span id="cur-year"></span> AllStar Node ${NODE_NUM} Telemetry Gateway. Original Design by Ronik Halder (S21SRK).</div>
         </footer>
     </div>
