@@ -6,49 +6,62 @@ Designed and developed by **Ronik Halder ([S21SRK](https://www.qrz.com/db/S21SRK
 
 ---
 
-## Features
+## Direct Terminal Quick Install (Root / Sudo)
 
-- **Live Hardware Telemetry**: Real-time scrolling graphs for CPU Temperature (°C) and 1-minute CPU Load Average via Chart.js.
-- **System Metrics**: Real-time RAM utilization, root storage consumption, system uptime, and Asterisk daemon health.
-- **Synchronized Dual Digital Clocks**: Real-time digital clocks tracking **UTC/GMT** alongside local station time (configurable to any IANA timezone, e.g., `Asia/Dhaka`, `America/New_York`, `UTC`).
-- **Non-Destructive Integration**: Hosts all assets outside of the default `/var/www/html/` directory (inside `/opt/`) using Apache Aliases and lightweight CGI, ensuring core ASL3 files and updates remain intact.
-- **Dynamic Station Customization**: Interactive terminal prompts automatically personalize the dashboard with the operator's callsign, node number, QRZ links, and custom external port.
+Log in to your Raspberry Pi via SSH, switch to root (or use standard sudo privileges), and paste either of the following commands directly into the terminal:
 
----
-
-## One-Line Automated Installation
-
-Connect to your Raspberry Pi via SSH and run either of these commands:
-
+### Option 1: Standard One-Line Curl Install
 ```bash
 curl -sSL [https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh](https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh) | bash
 ```
 
-*Or via bash process substitution:*
-
+### Option 2: Process Substitution (Recommended for Root Shells)
 ```bash
 bash <(curl -sSL [https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh](https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh))
 ```
 
-### Interactive Prompts During Installation:
-The installer will prompt via the keyboard for:
-1. **Callsign** (e.g., `S21SRK`)
-2. **Operator Name** (e.g., `Ronik Halder`)
-3. **AllStar Node Number** (e.g., `62208`)
-4. **External HTTPS Port** (default `8443` for router port forwarding)
-5. **Local Timezone** (e.g., `Asia/Dhaka`, `America/Chicago`)
-6. **Timezone Display Label** (e.g., `BST (UTC+6)`)
+### Option 3: Manual Step-by-Step Execution
+If your shell environment restricts piped execution, download and run it directly:
+```bash
+curl -sSL -o install.sh [https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh](https://raw.githubusercontent.com/s21srk/asl3-telemetry-hub/main/install.sh)
+chmod +x install.sh
+./install.sh
+```
 
 ---
 
-## Web Access Endpoints
+## Interactive Installation Prompts
 
-Once installed, your station services are reachable at:
+During execution, the installer directly connects to the terminal keyboard (`/dev/tty`) and prompts for station information:
 
-| Destination | Local Network (LAN) | Remote Network (WAN) |
+1. **Amateur Radio Callsign** (e.g., `S21SRK`)
+2. **Operator Name / Handle** (e.g., `Ronik Halder`)
+3. **AllStar Node Number** (e.g., `62208`)
+4. **External HTTPS Port** (default: `8443`)
+5. **Local Timezone** (e.g., `Asia/Dhaka`, `America/New_York`, `UTC`)
+6. **Timezone Display Label** (e.g., `BST (UTC+6)`)
+
+The script automatically detects the local LAN IP and external WAN IP to construct the dashboard endpoints.
+
+---
+
+## Key Features
+
+- **Real-Time Dynamic Graphs**: Continuously plotting CPU temperature (°C) and 1-minute load averages via Chart.js.
+- **Hardware Telemetry**: Monitored RAM usage, root storage (`/`), uptime counter, and live Asterisk systemd service status.
+- **Synchronized Dual Digital Clocks**: Displays UTC/GMT alongside station local time.
+- **Isolated Deployment**: Installs to `/opt/hub/` and `/opt/iot/` using Apache Aliases and lightweight CGI, protecting core ASL3 system files from corruption or overwrites during package updates.
+
+---
+
+## Accessing Station Portals
+
+After installation completes, navigate to the generated URLs:
+
+| Service | Local LAN Access | Remote WAN Access |
 |---|---|---|
 | **Live Telemetry Dashboard** | `https://<PI-IP>/iot/` | `https://<WAN-IP>:<PORT>/iot/` |
-| **Station Control Portal** | `https://<PI-IP>/hub/` | `https://<WAN-IP>:<PORT>/hub/` |
+| **Station Control Hub** | `https://<PI-IP>/hub/` | `https://<WAN-IP>:<PORT>/hub/` |
 | **AllMon3 Monitor** | `https://<PI-IP>/allmon3/` | `https://<WAN-IP>:<PORT>/allmon3/` |
 | **AllScan Scanner** | `https://<PI-IP>/allscan/` | `https://<WAN-IP>:<PORT>/allscan/` |
 
@@ -59,10 +72,10 @@ Once installed, your station services are reachable at:
 ```text
 /opt/
 ├── hub/
-│   └── index.html          # Card-based launcher for all node tools
+│   └── index.html          # Station navigation hub
 └── iot/
     ├── index.html          # High-refresh responsive telemetry dashboard
-    └── stats.py            # Lightweight, zero-overhead Bash CGI JSON engine
+    └── stats.py            # Zero-overhead Bash CGI JSON telemetry engine
 ```
 
 ---
@@ -70,5 +83,5 @@ Once installed, your station services are reachable at:
 ## Credits & License
 
 - **Developer**: Ronik Halder ([S21SRK](https://www.qrz.com/db/S21SRK))
-- **Platform**: Designed for [AllStarLink](https://allstarlink.org/)
-- **License**: MIT License. Free to use, adapt, and distribute for the amateur radio community.
+- **Target Platform**: [AllStarLink 3 (ASL3)](https://allstarlink.org/)
+- **License**: MIT License. Open source and free for the amateur radio community.
